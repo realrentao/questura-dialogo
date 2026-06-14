@@ -546,13 +546,24 @@ function playAudio(id, btnEl) {
     currentAudio = a;
     currentBtn = btnEl;
   }).catch(() => {
-    a.load();
-    a.play().then(() => {
-      currentAudio = a;
-      currentBtn = btnEl;
-    }).catch(() => {
+    // play failed, create fresh Audio and try again
+    const fresh = new Audio(a.src);
+    fresh.currentTime = 0;
+    fresh.playbackRate = currentSpeed;
+    fresh.onended = () => {
       btnEl.classList.remove('playing');
-    });
+      currentAudio = null;
+      currentBtn = null;
+    };
+    fresh.oncanplay = () => {
+      fresh.play().then(() => {
+        currentAudio = fresh;
+        currentBtn = btnEl;
+      }).catch(() => {
+        btnEl.classList.remove('playing');
+      });
+    };
+    fresh.load();
   });
 
   a.onended = () => {
