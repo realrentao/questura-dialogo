@@ -337,19 +337,120 @@
 </div>
 
 <script>
-const audioBase = 'questura-audio';
+const audioBase = 'https://4ae4d553abeb4fa58b9cd20e3be1b57f.app.codebuddy.work/questura-audio';
 
 const steps = [
-  { title: '问候 & 出示证件', police: [{ it: 'Buongiorno, mi dia il passaporto, per favore.', zh: '早上好，请给我您的护照。', audio: 'p01' }], you: [{ it: 'Buongiorno. Ecco il mio passaporto.', zh: '早上好。这是我的护照。', audio: 'u01' }] },
-  { title: '询问手机号码', police: [{ it: 'Qual è il suo numero di telefono?', zh: '您的手机号码是多少？', audio: 'p02' }, { it: 'Ha un numero di cellulare italiano?', zh: '有意大利手机号吗？', audio: 'p03' }], you: [{ it: 'Il mio numero di telefono è 3XX XXX XXXX.', zh: '我的手机号是 3XX XXX XXXX。', audio: 'u02' }, { it: 'Sì, ho un numero italiano.', zh: '有的，我有一个意大利号码。', audio: 'u03' }] },
-  { title: '询问税号 (Codice Fiscale)', police: [{ it: 'Ha il codice fiscale? Me lo può dire?', zh: '您有税号吗？请告诉我。', audio: 'p04' }], you: [{ it: 'Sì, il mio codice fiscale è RSSMRA85M10H501U.', zh: '有的，我的税号是 RSSMRA85M10H501U。', audio: 'u04' }] },
-  { title: '询问护照 & 签证', police: [{ it: 'Il passaporto è ancora valido? Ha il visto?', zh: '护照还有效吗？有签证吗？', audio: 'p05' }, { it: 'Qual è la data di scadenza del passaporto?', zh: '护照什么时候过期？', audio: 'p06' }], you: [{ it: 'Sì, il passaporto è valido. Il visto è di tipo studio.', zh: '有的，护照有效。签证是学习签证。', audio: 'u05' }, { it: 'Scade il 15 marzo 2028.', zh: '2028年3月15日到期。', audio: 'u06' }] },
-  { title: '询问居留信息', police: [{ it: 'È la prima volta che richiede il permesso di soggiorno o è un rinnovo?', zh: '您是第一次申请居留还是续签？', audio: 'p07' }, { it: 'Ha già avuto un permesso di soggiorno prima?', zh: '之前有过居留吗？', audio: 'p08' }], you: [{ it: 'È la prima volta che lo richiedo.', zh: '第一次申请（选择其一）', audio: 'u07' }, { it: 'È un rinnovo.', zh: '是续签（选择其一）', audio: 'u08' }, { it: 'Avevo un permesso per motivi di studio, scaduto il 30 aprile.', zh: '之前有学习居留，4月30日过期。', audio: 'u09' }] },
-  { title: '旧居留号码 & 材料', police: [{ it: 'Mi dia il numero del suo vecchio permesso di soggiorno.', zh: '请告诉我您旧居留的号码。', audio: 'p09' }, { it: 'Ha portato la copia del permesso scaduto?', zh: '带了过期居留的复印件吗？', audio: 'p10' }], you: [{ it: 'Il numero è IT 1234567890.', zh: '号码是 IT 1234567890。', audio: 'u10' }, { it: 'Sì, ecco la fotocopia.', zh: '带了，这是复印件。', audio: 'u11' }] },
-  { title: '询问住址', police: [{ it: 'Dove abita? Qual è il suo indirizzo?', zh: '您住在哪里？地址是什么？', audio: 'p11' }, { it: "Ha un contratto d'affitto o una dichiarazione di ospitalità?", zh: '有租房合同还是住宿证明？', audio: 'p12' }], you: [{ it: 'Abito a Milano, in Via Roma 10.', zh: '我住在米兰，罗马大街10号。', audio: 'u12' }, { it: "Ho un contratto d'affitto. Ecco una copia.", zh: '我有租房合同，这是一份副本。', audio: 'u13' }] },
-  { title: '询问学习/工作情况', police: [{ it: 'Che lavoro fa? O studia?', zh: '您做什么工作？还是在学习？', audio: 'p13' }, { it: 'Dove studia? Dove lavora?', zh: '在哪里学习？在哪里工作？', audio: 'p14' }, { it: 'Ha il contratto di lavoro o la lettera di iscrizione?', zh: '有工作合同/在读证明吗？', audio: 'p15' }], you: [{ it: "Studio all'Università di Bologna, facoltà di Ingegneria.", zh: '我在博洛尼亚大学学习工程专业。', audio: 'u14' }, { it: 'Ecco la mia lettera di iscrizione.', zh: '这是我的在读证明。', audio: 'u15' }] },
-  { title: '按手印 & 拍照', police: [{ it: 'Ora deve fare le impronte digitali. Si avvicini.', zh: '现在需要按手印，请靠近一点。', audio: 'p16' }, { it: 'Metti il dito qui. Ora la mano destra, ora la sinistra.', zh: '把手指放在这里。现在右手，现在左手。', audio: 'p17' }, { it: "Guardi dritto nell'obiettivo. Non sorrida.", zh: '请直视镜头。不要笑。', audio: 'p18' }], you: [{ it: 'Va bene.', zh: '好的。', audio: 'u16' }, { it: 'Così va bene?', zh: '这样可以吗？', audio: 'u17' }] },
-  { title: '签字 & 完成', police: [{ it: 'Firmi qui, per favore.', zh: '请在这里签字。', audio: 'p19' }, { it: 'Tenga questa ricevuta. Sarà pronto tra 2-3 mesi.', zh: '收好回执，大约2-3个月后办好。', audio: 'p20' }, { it: 'Può controllare sul sito della Polizia di Stato.', zh: '可以在警察局官网查询进度。', audio: 'p21' }, { it: 'Tutto a posto. Arrivederci!', zh: '都办好了，再见！', audio: 'p22' }], you: [{ it: 'Dove devo firmare? Ecco fatto.', zh: '在哪里签？签好了。', audio: 'u18' }, { it: 'Grazie mille. Arrivederci!', zh: '非常感谢。再见！', audio: 'u19' }] }
+  {
+    title: '问候 & 出示证件',
+    police: [
+      { it: 'Buongiorno, mi dia il passaporto, per favore.', zh: '早上好，请给我您的护照。', audio: 'p01' }
+    ],
+    you: [
+      { it: 'Buongiorno. Ecco il mio passaporto.', zh: '早上好。这是我的护照。', audio: 'u01' }
+    ]
+  },
+  {
+    title: '询问手机号码',
+    police: [
+      { it: 'Qual è il suo numero di telefono?', zh: '您的手机号码是多少？', audio: 'p02' },
+      { it: 'Ha un numero di cellulare italiano?', zh: '有意大利手机号吗？', audio: 'p03' }
+    ],
+    you: [
+      { it: 'Il mio numero di telefono è 3XX XXX XXXX.', zh: '我的手机号是 3XX XXX XXXX。', audio: 'u02' },
+      { it: 'Sì, ho un numero italiano.', zh: '有的，我有一个意大利号码。', audio: 'u03' }
+    ]
+  },
+  {
+    title: '询问税号 (Codice Fiscale)',
+    police: [
+      { it: 'Ha il codice fiscale? Me lo può dire?', zh: '您有税号吗？请告诉我。', audio: 'p04' }
+    ],
+    you: [
+      { it: 'Sì, il mio codice fiscale è RSSMRA85M10H501U.', zh: '有的，我的税号是 RSSMRA85M10H501U。', audio: 'u04' }
+    ]
+  },
+  {
+    title: '询问护照 & 签证',
+    police: [
+      { it: 'Il passaporto è ancora valido? Ha il visto?', zh: '护照还有效吗？有签证吗？', audio: 'p05' },
+      { it: 'Qual è la data di scadenza del passaporto?', zh: '护照什么时候过期？', audio: 'p06' }
+    ],
+    you: [
+      { it: 'Sì, il passaporto è valido. Il visto è di tipo studio.', zh: '有的，护照有效。签证是学习签证。', audio: 'u05' },
+      { it: 'Scade il 15 marzo 2028.', zh: '2028年3月15日到期。', audio: 'u06' }
+    ]
+  },
+  {
+    title: '询问居留信息',
+    police: [
+      { it: 'È la prima volta che richiede il permesso di soggiorno o è un rinnovo?', zh: '您是第一次申请居留还是续签？', audio: 'p07' },
+      { it: 'Ha già avuto un permesso di soggiorno prima?', zh: '之前有过居留吗？', audio: 'p08' }
+    ],
+    you: [
+      { it: 'È la prima volta che lo richiedo.', zh: '第一次申请（选择其一）', audio: 'u07' },
+      { it: 'È un rinnovo.', zh: '是续签（选择其一）', audio: 'u08' },
+      { it: 'Avevo un permesso per motivi di studio, scaduto il 30 aprile.', zh: '之前有学习居留，4月30日过期。', audio: 'u09' }
+    ]
+  },
+  {
+    title: '旧居留号码 & 材料',
+    police: [
+      { it: 'Mi dia il numero del suo vecchio permesso di soggiorno.', zh: '请告诉我您旧居留的号码。', audio: 'p09' },
+      { it: 'Ha portato la copia del permesso scaduto?', zh: '带了过期居留的复印件吗？', audio: 'p10' }
+    ],
+    you: [
+      { it: 'Il numero è IT 1234567890.', zh: '号码是 IT 1234567890。', audio: 'u10' },
+      { it: 'Sì, ecco la fotocopia.', zh: '带了，这是复印件。', audio: 'u11' }
+    ]
+  },
+  {
+    title: '询问住址',
+    police: [
+      { it: 'Dove abita? Qual è il suo indirizzo?', zh: '您住在哪里？地址是什么？', audio: 'p11' },
+      { it: 'Ha un contratto d\'affitto o una dichiarazione di ospitalità?', zh: '有租房合同还是住宿证明？', audio: 'p12' }
+    ],
+    you: [
+      { it: 'Abito a Milano, in Via Roma 10.', zh: '我住在米兰，罗马大街10号。', audio: 'u12' },
+      { it: 'Ho un contratto d\'affitto. Ecco una copia.', zh: '我有租房合同，这是一份副本。', audio: 'u13' }
+    ]
+  },
+  {
+    title: '询问学习/工作情况',
+    police: [
+      { it: 'Che lavoro fa? O studia?', zh: '您做什么工作？还是在学习？', audio: 'p13' },
+      { it: 'Dove studia? Dove lavora?', zh: '在哪里学习？在哪里工作？', audio: 'p14' },
+      { it: 'Ha il contratto di lavoro o la lettera di iscrizione?', zh: '有工作合同/在读证明吗？', audio: 'p15' }
+    ],
+    you: [
+      { it: 'Studio all\'Università di Bologna, facoltà di Ingegneria.', zh: '我在博洛尼亚大学学习工程专业。', audio: 'u14' },
+      { it: 'Ecco la mia lettera di iscrizione.', zh: '这是我的在读证明。', audio: 'u15' }
+    ]
+  },
+  {
+    title: '按手印 & 拍照',
+    police: [
+      { it: 'Ora deve fare le impronte digitali. Si avvicini.', zh: '现在需要按手印，请靠近一点。', audio: 'p16' },
+      { it: 'Metti il dito qui. Ora la mano destra, ora la sinistra.', zh: '把手指放在这里。现在右手，现在左手。', audio: 'p17' },
+      { it: 'Guardi dritto nell\'obiettivo. Non sorrida.', zh: '请直视镜头。不要笑。', audio: 'p18' }
+    ],
+    you: [
+      { it: 'Va bene.', zh: '好的。', audio: 'u16' },
+      { it: 'Così va bene?', zh: '这样可以吗？', audio: 'u17' }
+    ]
+  },
+  {
+    title: '签字 & 完成',
+    police: [
+      { it: 'Firmi qui, per favore.', zh: '请在这里签字。', audio: 'p19' },
+      { it: 'Tenga questa ricevuta. Sarà pronto tra 2-3 mesi.', zh: '收好回执，大约2-3个月后办好。', audio: 'p20' },
+      { it: 'Può controllare sul sito della Polizia di Stato.', zh: '可以在警察局官网查询进度。', audio: 'p21' },
+      { it: 'Tutto a posto. Arrivederci!', zh: '都办好了，再见！', audio: 'p22' }
+    ],
+    you: [
+      { it: 'Dove devo firmare? Ecco fatto.', zh: '在哪里签？签好了。', audio: 'u18' },
+      { it: 'Grazie mille. Arrivederci!', zh: '非常感谢。再见！', audio: 'u19' }
+    ]
+  }
 ];
 
 let currentStep = 0;
@@ -361,31 +462,51 @@ const totalAudio = steps.reduce((sum, s) => sum + s.police.length + s.you.length
 
 function preloadAll() {
   const ids = new Set();
-  steps.forEach(s => { s.police.forEach(p => ids.add(p.audio)); s.you.forEach(p => ids.add(p.audio)); });
+  steps.forEach(s => {
+    s.police.forEach(p => ids.add(p.audio));
+    s.you.forEach(p => ids.add(p.audio));
+  });
   helpIds.forEach(id => ids.add(id));
   ids.forEach(id => {
     const a = new Audio(audioBase + '/' + id + '.mp3');
     a.preload = 'auto';
-    a.addEventListener('canplaythrough', () => { loadedCount++; updateLoading(); }, { once: true });
-    a.addEventListener('error', () => { loadedCount++; updateLoading(); }, { once: true });
+    a.addEventListener('canplaythrough', () => {
+      loadedCount++;
+      updateLoading();
+    }, { once: true });
+    a.addEventListener('error', () => {
+      loadedCount++;
+      updateLoading();
+    }, { once: true });
     audioCache[id] = a;
   });
 }
 
 function updateLoading() {
   const el = document.getElementById('loadingIndicator');
-  if (loadedCount >= totalAudio) { el.textContent = '✅ ' + totalAudio + '/' + totalAudio + ' 已加载'; el.style.color = '#27ae60'; }
-  else { el.textContent = '⏳ ' + loadedCount + '/' + totalAudio + ' 加载中...'; }
+  if (loadedCount >= totalAudio) {
+    el.textContent = '✅ ' + totalAudio + '/' + totalAudio + ' 已加载';
+    el.style.color = '#27ae60';
+  } else {
+    el.textContent = '⏳ ' + loadedCount + '/' + totalAudio + ' 加载中...';
+  }
 }
 
 function getAudio(id) {
-  if (!audioCache[id]) { const a = new Audio(audioBase + '/' + id + '.mp3'); a.preload = 'auto'; audioCache[id] = a; }
+  if (!audioCache[id]) {
+    const a = new Audio(audioBase + '/' + id + '.mp3');
+    a.preload = 'auto';
+    audioCache[id] = a;
+  }
   return audioCache[id];
 }
 
 function setSpeed(speed) {
   currentSpeed = speed;
-  document.querySelectorAll('.speed-btn').forEach(b => { b.classList.toggle('active', parseFloat(b.dataset.speed) === speed); });
+  document.querySelectorAll('.speed-btn').forEach(b => {
+    b.classList.toggle('active', parseFloat(b.dataset.speed) === speed);
+  });
+  // Update currently playing
   if (currentAudio) { currentAudio.playbackRate = speed; }
 }
 
@@ -394,14 +515,38 @@ let currentBtn = null;
 
 function playAudio(id, btnEl) {
   const a = getAudio(id);
+
+  // If clicking the same button that's already playing → stop it
   if (currentBtn === btnEl && currentAudio && !currentAudio.paused) {
-    currentAudio.pause(); currentAudio.currentTime = 0; btnEl.classList.remove('playing'); currentAudio = null; currentBtn = null; return;
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    btnEl.classList.remove('playing');
+    currentAudio = null;
+    currentBtn = null;
+    return;
   }
-  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; if (currentBtn) currentBtn.classList.remove('playing'); }
-  a.currentTime = 0; a.playbackRate = currentSpeed; btnEl.classList.add('playing');
+
+  // Stop any currently playing audio
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    if (currentBtn) currentBtn.classList.remove('playing');
+  }
+
+  // Play the new one
+  a.currentTime = 0;
+  a.playbackRate = currentSpeed;
+  btnEl.classList.add('playing');
   a.play().catch(() => {});
-  currentAudio = a; currentBtn = btnEl;
-  a.onended = () => { btnEl.classList.remove('playing'); currentAudio = null; currentBtn = null; };
+
+  currentAudio = a;
+  currentBtn = btnEl;
+
+  a.onended = () => {
+    btnEl.classList.remove('playing');
+    currentAudio = null;
+    currentBtn = null;
+  };
 }
 
 function toggleRef(el) {
@@ -416,15 +561,44 @@ function renderStep(idx) {
   const content = document.getElementById('stepContent');
   const dots = document.getElementById('stepDots');
   const counter = document.getElementById('stepCounter');
+
   counter.textContent = (idx + 1) + ' / ' + steps.length;
+
+  // Dots
   dots.innerHTML = '';
-  steps.forEach((_, i) => { const dot = document.createElement('div'); dot.className = 'dot'; if (i < idx) dot.classList.add('done'); else if (i === idx) dot.classList.add('current'); dots.appendChild(dot); });
+  steps.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    if (i < idx) dot.classList.add('done');
+    else if (i === idx) dot.classList.add('current');
+    dots.appendChild(dot);
+  });
+
+  // Content
   let html = '<div class="step-header"><div class="step-num">' + (idx + 1) + '</div><div class="step-title">' + s.title + '</div></div>';
+
+  // Police section
   html += '<div class="speaker-tag speaker-police">👮 Polizia 警察</div>';
-  s.police.forEach(p => { html += '<div class="card"><div class="card-content"><div class="card-text"><div class="it">' + p.it + '</div><div class="zh">' + p.zh + '</div></div><button class="play-btn police" onclick="playAudio(\'' + p.audio + '\', this)">▶</button></div></div>'; });
-  html += '<div style="margin-top:16px"></div><div class="speaker-tag speaker-you">🧑 Tu 你的回答</div>';
-  s.you.forEach(p => { html += '<div class="card"><div class="card-content"><div class="card-text"><div class="it">' + p.it + '</div><div class="zh">' + p.zh + '</div></div><button class="play-btn user" onclick="playAudio(\'' + p.audio + '\', this)">▶</button></div></div>'; });
+  s.police.forEach(p => {
+    html += '<div class="card"><div class="card-content">';
+    html += '<div class="card-text"><div class="it">' + p.it + '</div><div class="zh">' + p.zh + '</div></div>';
+    html += '<button class="play-btn police" onclick="playAudio(\'' + p.audio + '\', this)">▶</button>';
+    html += '</div></div>';
+  });
+
+  // User section
+  html += '<div style="margin-top:16px"></div>';
+  html += '<div class="speaker-tag speaker-you">🧑 Tu 你的回答</div>';
+  s.you.forEach(p => {
+    html += '<div class="card"><div class="card-content">';
+    html += '<div class="card-text"><div class="it">' + p.it + '</div><div class="zh">' + p.zh + '</div></div>';
+    html += '<button class="play-btn user" onclick="playAudio(\'' + p.audio + '\', this)">▶</button>';
+    html += '</div></div>';
+  });
+
   content.innerHTML = html;
+
+  // Nav buttons
   document.getElementById('prevBtn').disabled = idx === 0;
   document.getElementById('nextBtn').textContent = idx === steps.length - 1 ? '✓ 完成' : '下一步 →';
 }
@@ -432,12 +606,20 @@ function renderStep(idx) {
 function goStep(dir) {
   const newStep = currentStep + dir;
   if (newStep < 0 || newStep >= steps.length) return;
-  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; if (currentBtn) currentBtn.classList.remove('playing'); currentAudio = null; currentBtn = null; }
+  // Stop all audio
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    if (currentBtn) currentBtn.classList.remove('playing');
+    currentAudio = null;
+    currentBtn = null;
+  }
   currentStep = newStep;
   renderStep(currentStep);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// Init
 preloadAll();
 renderStep(0);
 </script>
