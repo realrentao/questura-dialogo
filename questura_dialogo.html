@@ -521,55 +521,47 @@ let currentAudio = null;
 let currentBtn = null;
 
 function playAudio(id, btnEl) {
-  const a = getAudio(id);
-
-  if (currentBtn === btnEl && currentAudio && !currentAudio.paused) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-    btnEl.classList.remove('playing');
-    currentAudio = null;
-    currentBtn = null;
-    return;
-  }
-
+  // Stop previous audio
   if (currentAudio) {
     currentAudio.pause();
-    currentAudio.currentTime = 0;
+    currentAudio = null;
     if (currentBtn) currentBtn.classList.remove('playing');
+    currentBtn = null;
   }
 
-  a.currentTime = 0;
+  const url = audioBase + '/' + id + '.mp3';
+  const a = new Audio(url);
   a.playbackRate = currentSpeed;
   btnEl.classList.add('playing');
+  currentAudio = a;
+  currentBtn = btnEl;
 
-  a.play().then(() => {
-    currentAudio = a;
-    currentBtn = btnEl;
-  }).catch(() => {
-    // play failed, create fresh Audio and try again
-    const fresh = new Audio(a.src);
-    fresh.currentTime = 0;
-    fresh.playbackRate = currentSpeed;
-    fresh.onended = () => {
-      btnEl.classList.remove('playing');
-      currentAudio = null;
-      currentBtn = null;
-    };
-    fresh.oncanplay = () => {
-      fresh.play().then(() => {
-        currentAudio = fresh;
-        currentBtn = btnEl;
-      }).catch(() => {
-        btnEl.classList.remove('playing');
-      });
-    };
-    fresh.load();
-  });
+  function tryPlay(retry) {
+    a.currentTime = 0;
+    a.play().then(() => {}).catch(() => {
+      if (retry) { a.load(); }
+      a.addEventListener('canplaythrough', () => {
+        a.currentTime = 0;
+        a.play().then(() => {}).catch(() => {
+          btnEl.classList.remove('playing');
+          currentAudio = null;
+          currentBtn = null;
+        });
+      }, { once: true });
+    });
+  }
+
+  if (a.readyState >= 2) {
+    a.currentTime = 0;
+    a.play().then(() => {}).catch(() => tryPlay(true));
+  } else {
+    tryPlay(true);
+  }
 
   a.onended = () => {
     btnEl.classList.remove('playing');
-    currentAudio = null;
-    currentBtn = null;
+    if (currentAudio === a) currentAudio = null;
+    if (currentBtn === btnEl) currentBtn = null;
   };
 }
 
