@@ -523,7 +523,6 @@ let currentBtn = null;
 function playAudio(id, btnEl) {
   const a = getAudio(id);
 
-  // If clicking the same button that's already playing → stop it
   if (currentBtn === btnEl && currentAudio && !currentAudio.paused) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
@@ -533,40 +532,28 @@ function playAudio(id, btnEl) {
     return;
   }
 
-  // Stop any currently playing audio
   if (currentAudio) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
     if (currentBtn) currentBtn.classList.remove('playing');
   }
 
-  // Ensure audio is loaded, then play
+  a.currentTime = 0;
+  a.playbackRate = currentSpeed;
   btnEl.classList.add('playing');
 
-  function doPlay() {
-    a.currentTime = 0;
-    a.playbackRate = currentSpeed;
+  a.play().then(() => {
+    currentAudio = a;
+    currentBtn = btnEl;
+  }).catch(() => {
+    a.load();
     a.play().then(() => {
       currentAudio = a;
       currentBtn = btnEl;
     }).catch(() => {
-      // If play failed, try reloading
-      a.load();
-      a.play().then(() => {
-        currentAudio = a;
-        currentBtn = btnEl;
-      }).catch(() => {
-        btnEl.classList.remove('playing');
-      });
+      btnEl.classList.remove('playing');
     });
-  }
-
-  if (a.readyState < 2) {
-    a.addEventListener('canplay', doPlay, { once: true });
-    a.load();
-  } else {
-    doPlay();
-  }
+  });
 
   a.onended = () => {
     btnEl.classList.remove('playing');
@@ -607,7 +594,7 @@ function renderStep(idx) {
   html += '<div class="speaker-tag speaker-police">👮 Polizia 警察</div>';
   s.police.forEach(p => {
     html += '<div class="card"><div class="card-content">';
-    html += '<div class="card-text"><div class="it">' + p.it + '</div><div class="zh">' + p.zh + '</div></div>';
+    html += '<div class="card-text"><div class="it">' + p.it + '</div><div class="zh">' + p.zh + '</div><div class="py">' + (p.py || '') + '</div></div>';
     html += '<button class="play-btn police" onclick="playAudio(\'' + p.audio + '\', this)">▶</button>';
     html += '</div></div>';
   });
@@ -617,7 +604,7 @@ function renderStep(idx) {
   html += '<div class="speaker-tag speaker-you">🧑 Tu 你的回答</div>';
   s.you.forEach(p => {
     html += '<div class="card"><div class="card-content">';
-    html += '<div class="card-text"><div class="it">' + p.it + '</div><div class="zh">' + p.zh + '</div></div>';
+    html += '<div class="card-text"><div class="it">' + p.it + '</div><div class="zh">' + p.zh + '</div><div class="py">' + (p.py || '') + '</div></div>';
     html += '<button class="play-btn user" onclick="playAudio(\'' + p.audio + '\', this)">▶</button>';
     html += '</div></div>';
   });
