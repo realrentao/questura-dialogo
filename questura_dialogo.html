@@ -521,44 +521,25 @@ let currentAudio = null;
 let currentBtn = null;
 
 function playAudio(id, btnEl) {
-  // Stop previous audio
   if (currentAudio) {
     currentAudio.pause();
-    currentAudio = null;
     if (currentBtn) currentBtn.classList.remove('playing');
-    currentBtn = null;
   }
 
   const url = audioBase + '/' + id + '.mp3';
   const a = new Audio(url);
   a.playbackRate = currentSpeed;
+
   btnEl.classList.add('playing');
   currentAudio = a;
   currentBtn = btnEl;
 
-  function tryPlay(retry) {
-    a.currentTime = 0;
-    a.play().then(() => {}).catch(() => {
-      if (retry) { a.load(); }
-      a.addEventListener('canplaythrough', () => {
-        a.currentTime = 0;
-        a.play().then(() => {}).catch(() => {
-          btnEl.classList.remove('playing');
-          currentAudio = null;
-          currentBtn = null;
-        });
-      }, { once: true });
-    });
-  }
+  a.play().catch(() => {
+    a.load();
+    setTimeout(() => a.play().catch(() => {}), 300);
+  });
 
-  if (a.readyState >= 2) {
-    a.currentTime = 0;
-    a.play().then(() => {}).catch(() => tryPlay(true));
-  } else {
-    tryPlay(true);
-  }
-
-  a.onended = () => {
+  a.onended = a.onerror = () => {
     btnEl.classList.remove('playing');
     if (currentAudio === a) currentAudio = null;
     if (currentBtn === btnEl) currentBtn = null;
