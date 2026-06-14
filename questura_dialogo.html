@@ -337,7 +337,9 @@
 </div>
 
 <script>
-const audioBase = 'questura-audio';
+const audioBase = window.location.hostname === 'realrentao.github.io'
+  ? 'https://realrentao.github.io/questura-dialogo/questura-audio'
+  : 'questura-audio';
 
 const steps = [
   {
@@ -533,14 +535,33 @@ function playAudio(id, btnEl) {
     if (currentBtn) currentBtn.classList.remove('playing');
   }
 
-  // Play the new one
-  a.currentTime = 0;
-  a.playbackRate = currentSpeed;
+  // Ensure audio is loaded, then play
   btnEl.classList.add('playing');
-  a.play().catch(() => {});
 
-  currentAudio = a;
-  currentBtn = btnEl;
+  function doPlay() {
+    a.currentTime = 0;
+    a.playbackRate = currentSpeed;
+    a.play().then(() => {
+      currentAudio = a;
+      currentBtn = btnEl;
+    }).catch(() => {
+      // If play failed, try reloading
+      a.load();
+      a.play().then(() => {
+        currentAudio = a;
+        currentBtn = btnEl;
+      }).catch(() => {
+        btnEl.classList.remove('playing');
+      });
+    });
+  }
+
+  if (a.readyState < 2) {
+    a.addEventListener('canplay', doPlay, { once: true });
+    a.load();
+  } else {
+    doPlay();
+  }
 
   a.onended = () => {
     btnEl.classList.remove('playing');
