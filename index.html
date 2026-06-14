@@ -113,6 +113,9 @@
   .card-text { flex: 1; min-width: 0; }
   .card-text .it { font-size: 14px; line-height: 1.55; color: #222; }
   .card-text .zh { font-size: 12.5px; color: #888; margin-top: 3px; line-height: 1.45; }
+  .card-text .py { font-size: 12px; color: #aaa; margin-top: 1px; line-height: 1.4; }
+  .card-text .py { font-size: 12px; color: #aaa; margin-top: 1px; line-height: 1.4; }
+  .card-text .py { font-size: 12px; color: #aaa; margin-top: 1px; line-height: 1.4; }
   .play-btn {
     flex-shrink: 0;
     width: 36px;
@@ -246,6 +249,9 @@
   .help-text { flex: 1; }
   .help-text .it { font-size: 14px; color: #222; }
   .help-text .zh { font-size: 12.5px; color: #888; margin-top: 2px; }
+  .help-text .py { font-size: 12px; color: #aaa; margin-top: 1px; }
+  .help-text .py { font-size: 12px; color: #aaa; margin-top: 1px; }
+  .help-text .py { font-size: 12px; color: #aaa; margin-top: 1px; }
   @media (max-width: 480px) {
     .container { padding: 12px 10px 80px; }
     .card { padding: 12px 12px; }
@@ -315,6 +321,9 @@
         <div class="help-text">
           <div class="it">Non ho capito.</div>
           <div class="zh">我没听懂</div>
+          <div class="py">农 奥 卡皮托</div>
+          <div class="py">农 奥 卡皮托</div>
+          <div class="py">农 奥 卡皮托</div>
         </div>
       </div>
       <div class="help-card">
@@ -322,6 +331,9 @@
         <div class="help-text">
           <div class="it">Può ripetere, per favore?</div>
           <div class="zh">能再说一遍吗？</div>
+          <div class="py">普奥 里佩泰雷，佩尔 法沃雷</div>
+          <div class="py">普奥 里佩泰雷，佩尔 法沃雷</div>
+          <div class="py">普奥 里佩泰雷，佩尔 法沃雷？</div>
         </div>
       </div>
       <div class="help-card">
@@ -329,6 +341,9 @@
         <div class="help-text">
           <div class="it">Può parlare più lentamente?</div>
           <div class="zh">能说慢点吗？</div>
+          <div class="py">普奥 帕尔拉雷 皮乌 伦塔门特</div>
+          <div class="py">普奥 帕尔拉雷 皮乌 伦塔门特</div>
+          <div class="py">普奥 帕尔拉雷 皮乌 伦塔门特？</div>
         </div>
       </div>
     </div>
@@ -345,112 +360,112 @@ const steps = [
   {
     title: '问候 & 出示证件',
     police: [
-      { it: 'Buongiorno, mi dia il passaporto, per favore.', zh: '早上好，请给我您的护照。', audio: 'p01' }
+      { it: 'Buongiorno, mi dia il passaporto, per favore.', zh: '早上好，请给我您的护照。', py: '布恩娇尔诺，米 迪亚 伊尔 巴萨波尔托，佩尔 法沃雷', audio: 'p01' }
     ],
     you: [
-      { it: 'Buongiorno. Ecco il mio passaporto.', zh: '早上好。这是我的护照。', audio: 'u01' }
+      { it: 'Buongiorno. Ecco il mio passaporto.', zh: '早上好。这是我的护照。', py: '布恩娇尔诺。埃科 伊尔 米奥 巴萨波尔托', audio: 'u01' }
     ]
   },
   {
     title: '询问手机号码',
     police: [
-      { it: 'Qual è il suo numero di telefono?', zh: '您的手机号码是多少？', audio: 'p02' },
-      { it: 'Ha un numero di cellulare italiano?', zh: '有意大利手机号吗？', audio: 'p03' }
+      { it: 'Qual è il suo numero di telefono?', zh: '您的手机号码是多少？', py: '夸莱 伊尔 苏奥 努梅罗 迪 泰莱福诺', audio: 'p02' },
+      { it: 'Ha un numero di cellulare italiano?', zh: '有意大利手机号吗？', py: '阿 温 努梅罗 迪 切卢拉雷 伊塔利亚诺', audio: 'p03' }
     ],
     you: [
-      { it: 'Il mio numero di telefono è 3XX XXX XXXX.', zh: '我的手机号是 3XX XXX XXXX。', audio: 'u02' },
-      { it: 'Sì, ho un numero italiano.', zh: '有的，我有一个意大利号码。', audio: 'u03' }
+      { it: 'Il mio numero di telefono è 3XX XXX XXXX.', zh: '我的手机号是 3XX XXX XXXX。', py: '伊尔 米奥 努梅罗 迪 泰莱福诺 埃 ……', audio: 'u02' },
+      { it: 'Sì, ho un numero italiano.', zh: '有的，我有一个意大利号码。', py: '西，奥 温 努梅罗 伊塔利亚诺', audio: 'u03' }
     ]
   },
   {
     title: '询问税号 (Codice Fiscale)',
     police: [
-      { it: 'Ha il codice fiscale? Me lo può dire?', zh: '您有税号吗？请告诉我。', audio: 'p04' }
+      { it: 'Ha il codice fiscale? Me lo può dire?', zh: '您有税号吗？请告诉我。', py: '阿 伊尔 科迪切 菲斯卡莱？梅 洛 普奥 迪雷', audio: 'p04' }
     ],
     you: [
-      { it: 'Sì, il mio codice fiscale è RSSMRA85M10H501U.', zh: '有的，我的税号是 RSSMRA85M10H501U。', audio: 'u04' }
+      { it: 'Sì, il mio codice fiscale è RSSMRA85M10H501U.', zh: '有的，我的税号是 RSSMRA85M10H501U。', py: '西，伊尔 米奥 科迪切 菲斯卡莱 埃 ……', audio: 'u04' }
     ]
   },
   {
     title: '询问护照 & 签证',
     police: [
-      { it: 'Il passaporto è ancora valido? Ha il visto?', zh: '护照还有效吗？有签证吗？', audio: 'p05' },
-      { it: 'Qual è la data di scadenza del passaporto?', zh: '护照什么时候过期？', audio: 'p06' }
+      { it: 'Il passaporto è ancora valido? Ha il visto?', zh: '护照还有效吗？有签证吗？', py: '伊尔 巴萨波尔托 埃 安科拉 瓦利多？阿 伊尔 维斯托', audio: 'p05' },
+      { it: 'Qual è la data di scadenza del passaporto?', zh: '护照什么时候过期？', py: '夸莱 拉 达塔 迪 斯卡登扎 德尔 巴萨波尔托', audio: 'p06' }
     ],
     you: [
-      { it: 'Sì, il passaporto è valido. Il visto è di tipo studio.', zh: '有的，护照有效。签证是学习签证。', audio: 'u05' },
-      { it: 'Scade il 15 marzo 2028.', zh: '2028年3月15日到期。', audio: 'u06' }
+      { it: 'Sì, il passaporto è valido. Il visto è di tipo studio.', zh: '有的，护照有效。签证是学习签证。', py: '西，伊尔 巴萨波尔托 埃 瓦利多。伊尔 维斯托 埃 迪 蒂波 斯图迪奥', audio: 'u05' },
+      { it: 'Scade il 15 marzo 2028.', zh: '2028年3月15日到期。', py: '斯卡代 伊尔 昆迪奇 马尔佐 杜埃米拉文托托', audio: 'u06' }
     ]
   },
   {
     title: '询问居留信息',
     police: [
-      { it: 'È la prima volta che richiede il permesso di soggiorno o è un rinnovo?', zh: '您是第一次申请居留还是续签？', audio: 'p07' },
-      { it: 'Ha già avuto un permesso di soggiorno prima?', zh: '之前有过居留吗？', audio: 'p08' }
+      { it: 'È la prima volta che richiede il permesso di soggiorno o è un rinnovo?', zh: '您是第一次申请居留还是续签？', py: '埃 拉 普里马 沃尔塔 凯 里基耶代 伊尔 佩尔梅索 迪 索娇尔诺 奥 埃 温 林诺沃', audio: 'p07' },
+      { it: 'Ha già avuto un permesso di soggiorno prima?', zh: '之前有过居留吗？', py: '阿 加 阿武托 温 佩尔梅索 迪 索娇尔诺 普里马', audio: 'p08' }
     ],
     you: [
-      { it: 'È la prima volta che lo richiedo.', zh: '第一次申请（选择其一）', audio: 'u07' },
-      { it: 'È un rinnovo.', zh: '是续签（选择其一）', audio: 'u08' },
-      { it: 'Avevo un permesso per motivi di studio, scaduto il 30 aprile.', zh: '之前有学习居留，4月30日过期。', audio: 'u09' }
+      { it: 'È la prima volta che lo richiedo.', zh: '第一次申请（选择其一）', py: '埃 拉 普里马 沃尔塔 凯 洛 里基耶多', audio: 'u07' },
+      { it: 'È un rinnovo.', zh: '是续签（选择其一）', py: '埃 温 林诺沃', audio: 'u08' },
+      { it: 'Avevo un permesso per motivi di studio, scaduto il 30 aprile.', zh: '之前有学习居留，4月30日过期。', py: '阿韦沃 温 佩尔梅索 佩尔 莫蒂维 迪 斯图迪奥，斯卡杜托 伊尔 特伦塔 阿普里莱', audio: 'u09' }
     ]
   },
   {
     title: '旧居留号码 & 材料',
     police: [
-      { it: 'Mi dia il numero del suo vecchio permesso di soggiorno.', zh: '请告诉我您旧居留的号码。', audio: 'p09' },
-      { it: 'Ha portato la copia del permesso scaduto?', zh: '带了过期居留的复印件吗？', audio: 'p10' }
+      { it: 'Mi dia il numero del suo vecchio permesso di soggiorno.', zh: '请告诉我您旧居留的号码。', py: '米 迪亚 伊尔 努梅罗 德尔 苏奥 韦基奥 佩尔梅索 迪 索娇尔诺', audio: 'p09' },
+      { it: 'Ha portato la copia del permesso scaduto?', zh: '带了过期居留的复印件吗？', py: '阿 波尔塔托 拉 科皮亚 德尔 佩尔梅索 斯卡杜托', audio: 'p10' }
     ],
     you: [
-      { it: 'Il numero è IT 1234567890.', zh: '号码是 IT 1234567890。', audio: 'u10' },
-      { it: 'Sì, ecco la fotocopia.', zh: '带了，这是复印件。', audio: 'u11' }
+      { it: 'Il numero è IT 1234567890.', zh: '号码是 IT 1234567890。', py: '伊尔 努梅罗 埃 伊蒂 ……', audio: 'u10' },
+      { it: 'Sì, ecco la fotocopia.', zh: '带了，这是复印件。', py: '西，埃科 拉 福托科皮亚', audio: 'u11' }
     ]
   },
   {
     title: '询问住址',
     police: [
-      { it: 'Dove abita? Qual è il suo indirizzo?', zh: '您住在哪里？地址是什么？', audio: 'p11' },
+      { it: 'Dove abita? Qual è il suo indirizzo?', zh: '您住在哪里？地址是什么？', py: '多韦 阿比塔？夸莱 伊尔 苏奥 因迪里佐', audio: 'p11' },
       { it: 'Ha un contratto d\'affitto o una dichiarazione di ospitalità?', zh: '有租房合同还是住宿证明？', audio: 'p12' }
     ],
     you: [
-      { it: 'Abito a Milano, in Via Roma 10.', zh: '我住在米兰，罗马大街10号。', audio: 'u12' },
+      { it: 'Abito a Milano, in Via Roma 10.', zh: '我住在米兰，罗马大街10号。', py: '阿比托 阿 米兰诺，因 维亚 罗马 迪耶奇', audio: 'u12' },
       { it: 'Ho un contratto d\'affitto. Ecco una copia.', zh: '我有租房合同，这是一份副本。', audio: 'u13' }
     ]
   },
   {
     title: '询问学习/工作情况',
     police: [
-      { it: 'Che lavoro fa? O studia?', zh: '您做什么工作？还是在学习？', audio: 'p13' },
-      { it: 'Dove studia? Dove lavora?', zh: '在哪里学习？在哪里工作？', audio: 'p14' },
-      { it: 'Ha il contratto di lavoro o la lettera di iscrizione?', zh: '有工作合同/在读证明吗？', audio: 'p15' }
+      { it: 'Che lavoro fa? O studia?', zh: '您做什么工作？还是在学习？', py: '凯 拉沃罗 法？奥 斯图迪亚', audio: 'p13' },
+      { it: 'Dove studia? Dove lavora?', zh: '在哪里学习？在哪里工作？', py: '多韦 斯图迪亚？多韦 拉沃拉', audio: 'p14' },
+      { it: 'Ha il contratto di lavoro o la lettera di iscrizione?', zh: '有工作合同/在读证明吗？', py: '阿 伊尔 孔特拉托 迪 拉沃罗 奥 拉 莱泰拉 迪 伊斯克里齐奥内', audio: 'p15' }
     ],
     you: [
       { it: 'Studio all\'Università di Bologna, facoltà di Ingegneria.', zh: '我在博洛尼亚大学学习工程专业。', audio: 'u14' },
-      { it: 'Ecco la mia lettera di iscrizione.', zh: '这是我的在读证明。', audio: 'u15' }
+      { it: 'Ecco la mia lettera di iscrizione.', zh: '这是我的在读证明。', py: '埃科 拉 米亚 莱泰拉 迪 伊斯克里齐奥内', audio: 'u15' }
     ]
   },
   {
     title: '按手印 & 拍照',
     police: [
-      { it: 'Ora deve fare le impronte digitali. Si avvicini.', zh: '现在需要按手印，请靠近一点。', audio: 'p16' },
-      { it: 'Metti il dito qui. Ora la mano destra, ora la sinistra.', zh: '把手指放在这里。现在右手，现在左手。', audio: 'p17' },
+      { it: 'Ora deve fare le impronte digitali. Si avvicini.', zh: '现在需要按手印，请靠近一点。', py: '奥拉 代韦 法雷 莱 因普龙泰 迪吉塔利。西 阿维维尼', audio: 'p16' },
+      { it: 'Metti il dito qui. Ora la mano destra, ora la sinistra.', zh: '把手指放在这里。现在右手，现在左手。', py: '梅蒂 伊尔 迪托 奎。奥拉 拉 马诺 代斯特拉，奥拉 拉 西尼斯特拉', audio: 'p17' },
       { it: 'Guardi dritto nell\'obiettivo. Non sorrida.', zh: '请直视镜头。不要笑。', audio: 'p18' }
     ],
     you: [
-      { it: 'Va bene.', zh: '好的。', audio: 'u16' },
-      { it: 'Così va bene?', zh: '这样可以吗？', audio: 'u17' }
+      { it: 'Va bene.', zh: '好的。', py: '瓦 贝内', audio: 'u16' },
+      { it: 'Così va bene?', zh: '这样可以吗？', py: '科齐 瓦 贝内', audio: 'u17' }
     ]
   },
   {
     title: '签字 & 完成',
     police: [
-      { it: 'Firmi qui, per favore.', zh: '请在这里签字。', audio: 'p19' },
-      { it: 'Tenga questa ricevuta. Sarà pronto tra 2-3 mesi.', zh: '收好回执，大约2-3个月后办好。', audio: 'p20' },
-      { it: 'Può controllare sul sito della Polizia di Stato.', zh: '可以在警察局官网查询进度。', audio: 'p21' },
-      { it: 'Tutto a posto. Arrivederci!', zh: '都办好了，再见！', audio: 'p22' }
+      { it: 'Firmi qui, per favore.', zh: '请在这里签字。', py: '菲尔米 奎，佩尔 法沃雷', audio: 'p19' },
+      { it: 'Tenga questa ricevuta. Sarà pronto tra 2-3 mesi.', zh: '收好回执，大约2-3个月后办好。', py: '滕加 奎斯塔 里切武塔。萨拉 普龙托 特拉 杜埃-特雷 梅齐', audio: 'p20' },
+      { it: 'Può controllare sul sito della Polizia di Stato.', zh: '可以在警察局官网查询进度。', py: '普奥 孔特罗拉雷 苏尔 西托 德拉 波利齐亚 迪 斯塔托', audio: 'p21' },
+      { it: 'Tutto a posto. Arrivederci!', zh: '都办好了，再见！', py: '图托 阿 波斯托。阿里韦代尔奇', audio: 'p22' }
     ],
     you: [
-      { it: 'Dove devo firmare? Ecco fatto.', zh: '在哪里签？签好了。', audio: 'u18' },
-      { it: 'Grazie mille. Arrivederci!', zh: '非常感谢。再见！', audio: 'u19' }
+      { it: 'Dove devo firmare? Ecco fatto.', zh: '在哪里签？签好了。', py: '多韦 代沃 菲尔马雷？埃科 法托', audio: 'u18' },
+      { it: 'Grazie mille. Arrivederci!', zh: '非常感谢。再见！', py: '格拉齐耶 米莱。阿里韦代尔奇', audio: 'u19' }
     ]
   }
 ];
